@@ -25,7 +25,7 @@ onMounted(() => {
     store.getUserInfo()
 })
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .header {
     padding: 12px 0 0 0;
 

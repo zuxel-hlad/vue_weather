@@ -21,13 +21,13 @@
                     </option>
                 </datalist>
             </label>
-            <button
+            <AppButton
                 type="submit"
                 :class="{ 'search-form__submit_error': validateError }"
                 class="search-form__submit"
             >
                 Search
-            </button>
+            </AppButton>
         </div>
         <span v-if="validateError" class="search-form__helper-text"
             >Fill the field</span
@@ -37,9 +37,10 @@
 <script setup>
 import { citiesEn } from './fakeCities'
 import { defineModel, ref, watch } from 'vue'
+import AppButton from '@/components/UI/App-Button/App-Button.vue'
 const validateError = ref(false)
 
-const searchValue = defineModel({})
+const searchValue = defineModel({ default: '' })
 
 const emit = defineEmits(['search'])
 
@@ -57,7 +58,7 @@ watch(searchValue, () => {
     }
 })
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .search-form {
     width: 100%;
     display: flex;
@@ -91,22 +92,7 @@ watch(searchValue, () => {
     }
 
     &__submit {
-        display: block;
-        padding: 12.5px 40px;
-        white-space: nowrap;
-        border: 1px solid $teal;
         border-radius: 0 6px 6px 0;
-        transition: background-color 0.2s;
-
-        @media (hover: hover) {
-            &:hover {
-                background-color: $teal;
-            }
-        }
-
-        &:active {
-            background-color: $teal;
-        }
 
         &_error {
             border-color: $red;
