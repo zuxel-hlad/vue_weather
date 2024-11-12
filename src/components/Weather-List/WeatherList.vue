@@ -1,19 +1,36 @@
 <template>
     <div class="weather-list">
-        <div class="weather-list__placeholder weather-list__card">
-            <button type="button" title="add new city">
+        <!-- <div class="weather-list__placeholder weather-list__card">
+            <button
+                type="button"
+                title="add new city"
+                @click="$emit('add-one')"
+            >
                 <i class="fa-solid fa-circle-plus"></i>
             </button>
-        </div>
-        <WeatherCard class="weather-list__card" />
-        <WeatherCard class="weather-list__card" />
-        <WeatherCard class="weather-list__card" />
-        <WeatherCard class="weather-list__card" />
-        <WeatherCard class="weather-list__card" />
+        </div> -->
+        <WeatherCard
+            @delete-item="$emit('delete-item', city.id)"
+            @set-favorite="$emit('set-favorite', city.id)"
+            class="weather-list__card"
+            v-for="city in cities"
+            :city="city"
+            :key="city.id"
+        />
     </div>
 </template>
 <script setup>
 import WeatherCard from '@/components/Weather-Card/WeatherCard.vue'
+
+defineEmits(['add-one', 'set-favorite', 'delete-item'])
+
+defineProps({
+    cities: {
+        type: Array,
+        required: true,
+        default: () => [],
+    },
+})
 </script>
 <style lang="scss">
 .weather-list {

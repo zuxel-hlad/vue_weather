@@ -1,6 +1,6 @@
 <template>
     <div class="alert" @click.stop>
-        <button type="button" class="alert__close" @click="$emit('cancel')">
+        <button type="button" class="alert__close" @click="$emit('close-alert')">
             <i class="fa-solid fa-xmark"></i>
         </button>
         <h3 class="alert__title">Attention!</h3>
@@ -36,7 +36,7 @@ defineProps({
     },
 })
 
-defineEmits(['confirm', 'cancel', 'close'])
+defineEmits(['confirm', 'cancel', 'close-alert'])
 </script>
 <style lang="scss">
 .alert {

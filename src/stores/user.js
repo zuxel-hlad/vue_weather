@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { api } from '@/api'
 
-export const useUserStore = defineStore('cities', {
+export const useUserStore = defineStore('user', {
     state: () => ({
         city: '-',
         temp: 0,
