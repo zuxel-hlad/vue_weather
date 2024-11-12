@@ -1,25 +1,34 @@
 import axios from 'axios'
-import { BASE_URL, API_KEY } from '@/constants'
-const lang = 'ua'
+import { BASE_URL, API_KEY, USER_LOCATION_URL } from '@/constants'
+
+const apiClient = axios.create({
+    baseURL: BASE_URL,
+    params: {
+        units: 'metric',
+        appid: API_KEY,
+    },
+})
+
 export const api = {
-    getCityByName: async (name) => {
+    getCityByName: async (name, lang = 'ua') => {
         try {
-            const response = await axios.get(
-                `${BASE_URL}/weather?q=${name}&units=metric&appid=${API_KEY}&lang=${lang}`,
-            )
-            return response.data
-        } catch (e) {
-            throw Error(e)
+            const { data } = await apiClient.get('/weather', {
+                params: { q: name, lang },
+            })
+            return data
+        } catch (error) {
+            console.error('Error getting weather:', error.message)
+            throw error
         }
     },
+
     getUserWeather: async () => {
         try {
-            const {
-                data: { city },
-            } = await axios.get('https://ipwho.is')
-            return city
-        } catch (e) {
-            throw Error(e)
+            const { data } = await axios.get(USER_LOCATION_URL)
+            return data?.city
+        } catch (error) {
+            console.error('Error when determining city:', error.message)
+            throw error
         }
     },
 }

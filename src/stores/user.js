@@ -17,23 +17,19 @@ export const useUserStore = defineStore('cities', {
 
             try {
                 const city = await api.getUserWeather()
-                const {
-                    main: { temp },
-                } = await api.getCityByName(city)
+                if (!city) throw new Error('Failed to get city.')
 
-                if (!city || !temp) {
-                    throw new Error('Something goes wrong...')
+                const response = await api.getCityByName(city)
+                if (!response || !response.main?.temp) {
+                    throw new Error('Failed to get weather.')
                 }
 
                 this.city = city
-                this.temp = Math.round(temp)
+                this.temp = Math.round(response.main?.temp)
+
             } catch (e) {
                 this.error = true
-                if (typeof e === 'object' && 'message' in e) {
-                    this.errorMessage = e.message
-                } else {
-                    this.errorMessage = e
-                }
+                  this.errorMessage = e?.message || 'An unknown error has occurred.'
             } finally {
                 this.loading = false
             }

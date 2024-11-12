@@ -4,7 +4,7 @@
             <a href="#!" class="header__logo">Wheater App</a>
             <div v-if="!error && !loading" class="header__user-info">
                 <span>{{ city }}</span>
-                <span>{{ temperature }}</span>
+                <span>{{ temp > 0 ? `+${temp}` : `${temp}` }}</span>
             </div>
             <span class="header__user-info" v-if="loading">Loading ...</span>
             <span v-if="error">{{ errorMessage }}</span>
@@ -18,20 +18,9 @@
 <script setup>
 import { useUserStore } from '@/stores/user'
 import { storeToRefs } from 'pinia'
-import { onMounted, computed } from 'vue'
+import { onMounted } from 'vue'
 const store = useUserStore()
 const { temp, error, loading, errorMessage, city } = storeToRefs(store)
-
-const temperature = computed(() => {
-    if (temp.value > 0) {
-        return `+${temp.value}`
-    } else if (temp.value < 0) {
-        return `${temp.value}`
-    } else {
-        return `${temp.value}`
-    }
-})
-
 onMounted(() => {
     store.getUserInfo()
 })
