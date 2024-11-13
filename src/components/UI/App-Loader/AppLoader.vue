@@ -1,9 +1,10 @@
 <template>
-    <div class="loader"></div>
+    <div class="loader" />
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .loader {
+    display: block;
     margin: 50px auto 0 auto;
     color: $teal;
     font-size: 45px;

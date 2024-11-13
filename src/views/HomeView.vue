@@ -65,6 +65,7 @@
 import WeatherList from '@/components/Weather-List/WeatherList.vue'
 import SearchForm from '@/components/Search-Form/SearchForm.vue'
 import WeatherChart from '@/components/WeatherChart/WeatherChart.vue'
+import AppLoader from '@/components/UI/App-Loader/AppLoader.vue'
 import { useCitiesStore } from '@/stores/cities'
 import { onMounted, ref } from 'vue'
 import { DEFAULT_CITY } from '@/constants'
