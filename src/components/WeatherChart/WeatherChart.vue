@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 import Chart from 'chart.js/auto'
 
 const chart = ref(null)
@@ -58,21 +58,21 @@ const renderChart = (labels, data) => {
                         display: true,
                         text: 'Temperature (°C)',
                     },
-                    beginAtZero: false,
+                    beginAtZero: true,
                 },
             },
         },
     })
 }
 
-const runChart = () => {
+const runChart = async () => {
     const labels = props.forecast.map((item) => item.time)
     const temperatures = props.forecast.map((item) => item.temp)
 
     renderChart(labels, temperatures)
 }
 
-onMounted(() => {
+watch(props, () => {
     runChart()
 })
 </script>

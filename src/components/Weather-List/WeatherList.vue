@@ -3,7 +3,7 @@
         <WeatherCard
             @delete-item="$emit('delete-item', city.id)"
             @set-favorite="$emit('set-favorite', city.id)"
-            @view-chart="$emit('view-chart', city.id)"
+            @view-chart="$emit('view-chart', city.name)"
             class="weather-list__card"
             v-for="city in cities"
             :city="city"

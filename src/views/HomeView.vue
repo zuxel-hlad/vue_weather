@@ -3,12 +3,12 @@
         <section class="section">
             <div class="container">
                 <SearchForm class="home-page__search" @search="store.addNewCity" />
-                <weather-list :cities="store.cities" @delete-item="store.deleteCity" @set-favorite="store.toggleIsFavorite" @view-chart="(id) => console.log(id)" />
+                <weather-list :cities="store.cities" @delete-item="store.deleteCity" @set-favorite="store.toggleIsFavorite" @view-chart="store.getCityHourlyForecast" />
                 <span v-if="!store.loading && !store.cities.length" class="message">No cities founded.</span>
             </div>
             <AppLoader v-if="store.loading" />
         </section>
-        <section v-if="store.hourlyForecast.length" class="section">
+        <section class="section">
             <div class="container">
                 <WeatherChart :forecast="store.hourlyForecast" />
             </div>
@@ -39,7 +39,9 @@ const store = useCitiesStore()
 onMounted(() => {
     store.getFavoriteCities()
     store.getDefaultCity()
-    store.getCityHourlyForecast('kharkiv')
+    if (!store.hourlyForecast.length) {
+        store.getCityHourlyForecast('kharkiv')
+    }
 })
 </script>
 <style lang="scss">
