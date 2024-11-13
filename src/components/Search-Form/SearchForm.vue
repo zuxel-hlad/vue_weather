@@ -3,35 +3,16 @@
         <div class="search-form__wrapper">
             <label class="search-form__label">
                 <span>Search city:</span>
-                <input
-                    v-model="searchValue"
-                    :class="{ 'search-form__input_error': validateError }"
-                    class="search-form__input"
-                    type="text"
-                    id="search"
-                    list="search-list"
-                />
+                <input v-model="searchValue" :class="{ 'search-form__input_error': validateError }" class="search-form__input" type="text" id="search" list="search-list" />
                 <datalist id="search-list" class="search-form__list">
-                    <option
-                        v-for="(city, idx) in citiesEn"
-                        :value="city"
-                        :key="idx"
-                    >
+                    <option v-for="(city, idx) in citiesEn" :value="city" :key="idx">
                         {{ city }}
                     </option>
                 </datalist>
             </label>
-            <AppButton
-                type="submit"
-                :class="{ 'search-form__submit_error': validateError }"
-                class="search-form__submit"
-            >
-                Search
-            </AppButton>
+            <AppButton type="submit" :class="{ 'search-form__submit_error': validateError }" class="search-form__submit"> Search </AppButton>
         </div>
-        <span v-if="validateError" class="search-form__helper-text"
-            >Fill the field</span
-        >
+        <span v-if="validateError" class="search-form__helper-text">Fill the field</span>
     </form>
 </template>
 <script setup>
@@ -47,6 +28,7 @@ const emit = defineEmits(['search'])
 const onSearch = () => {
     if (searchValue.value && searchValue.value.length) {
         emit('search', searchValue.value)
+        searchValue.value = ''
     } else {
         validateError.value = true
     }

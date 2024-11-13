@@ -1,29 +1,16 @@
 <template>
     <div class="card">
-        <div class="card__controls">
-            <button
-                type="button"
-                :class="{ card__btn_favorite: city?.isFavorite }"
-                class="card__btn"
-                title="Add to favorites"
-                @click="$emit('set-favorite')"
-            >
+        <div v-if="$route.path !== '/favorites'" class="card__controls">
+            <button type="button" :class="{ card__btn_favorite: city?.isFavorite }" class="card__btn" title="Add to favorites" @click="$emit('set-favorite')">
                 <i class="fa-solid fa-star"></i>
             </button>
-            <button
-                type="button"
-                class="card__btn"
-                title="Delete item"
-                @click="$emit('delete-item')"
-            >
+            <button type="button" class="card__btn" title="Delete item" @click="$emit('delete-item')">
                 <i class="fa-solid fa-trash"></i>
             </button>
         </div>
         <div class="card__content">
             <h3 class="card__content-title">{{ city?.name ?? '-' }}</h3>
-            <span class="card__content-description">{{
-                city?.temp && city?.temp > 0 ? `+${city.temp}` : `${city.temp}`
-            }}</span>
+            <span class="card__content-description">{{ city?.temp && city?.temp > 0 ? `+${city.temp}` : `${city.temp}` }}</span>
         </div>
     </div>
 </template>

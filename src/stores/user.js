@@ -26,10 +26,9 @@ export const useUserStore = defineStore('user', {
 
                 this.city = city
                 this.temp = Math.round(response.main?.temp)
-
             } catch (e) {
                 this.error = true
-                  this.errorMessage = e?.message || 'An unknown error has occurred.'
+                this.errorMessage = e?.message || 'An unknown error has occurred.'
             } finally {
                 this.loading = false
             }
