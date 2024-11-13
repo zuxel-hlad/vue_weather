@@ -4,7 +4,7 @@
             <i class="fa-solid fa-xmark"></i>
         </button>
         <h3 class="alert__title">Attention!</h3>
-        <p class="alert__description">The limit for adding cities has been reached. Delete one to add a new one.</p>
+        <p class="alert__description">The limit for adding cities is 5 items. Delete one to add a new one.</p>
         <div class="alert__controls" v-if="controls">
             <AppButton @click="$emit('confirm')" type="button" class="alert__controls-btn" warning>Ok </AppButton>
             <AppButton @click="$emit('cancel')" type="button" class="alert__controls-btn">Cancel </AppButton>
@@ -34,7 +34,6 @@ defineEmits(['confirm', 'cancel', 'close-alert'])
 
     &__close {
         position: absolute;
-        /* border: 1px solid black; */
         top: -3px;
         right: 5px;
         padding: 10px;

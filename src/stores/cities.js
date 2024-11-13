@@ -7,8 +7,8 @@ import formatTime from '@/helpers/formatTime'
 export const useCitiesStore = defineStore('cities', {
     state: () => ({
         cities: [],
-        favoriteCities: [],
         hourlyForecast: [],
+        favoriteCities: [],
         countAlert: false,
         deleteAlert: false,
         deleteItemId: '',
@@ -40,7 +40,15 @@ export const useCitiesStore = defineStore('cities', {
         toggleIsFavorite(id) {
             this.cities = this.cities.map((city) => {
                 if (city.id === id) {
-                    console.log('true')
+                    if (!this.favoriteCities.some((item) => item.id === id)) {
+                        this.favoriteCities.push({
+                            ...city,
+                            isFavorite: !city.isFavorite,
+                        })
+                    } else {
+                        this.favoriteCities = this.favoriteCities.filter((item) => item.id !== id)
+                    }
+
                     return {
                         ...city,
                         isFavorite: !city.isFavorite,
@@ -49,14 +57,15 @@ export const useCitiesStore = defineStore('cities', {
                     return city
                 }
             })
-            const favorites = this.cities.filter((city) => city.isFavorite === true)
-            localStorage.setItem('favorite-cities', JSON.stringify(favorites))
+            localStorage.setItem('favorite-cities', JSON.stringify(this.favoriteCities))
         },
 
         getFavoriteCities() {
-            const favoriteCities = JSON.parse(localStorage.getItem('favorite-cities'))
-            if (favoriteCities && favoriteCities.length) {
-                this.favoriteCities = favoriteCities
+            const saved = JSON.parse(localStorage.getItem('favorite-cities'))
+            if (saved && saved.length) {
+                this.favoriteCities = saved
+            } else {
+                localStorage.setItem('favorite-cities', JSON.stringify([]))
             }
         },
 
@@ -112,11 +121,12 @@ export const useCitiesStore = defineStore('cities', {
 
         async getDefaultCity() {
             if (this.cities.length) return
+
             this.error = ''
             this.loading = true
             try {
                 const city = await api.getCityByName(DEFAULT_CITY)
-                this.cities.unshift({
+                this.cities.push({
                     name: city.name,
                     isFavorite: this.checkIsFavorite(city.name),
                     id: generateId(),
