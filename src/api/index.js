@@ -33,7 +33,7 @@ export const api = {
         }
     },
 
-    getHourlyForecast: async (name) => {
+    getForecast: async (name) => {
         try {
             const { data } = await apiClient.get('/forecast', {
                 params: { q: name },

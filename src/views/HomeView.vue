@@ -3,14 +3,28 @@
         <section class="section">
             <div class="container">
                 <SearchForm class="home-page__search" @search="store.addNewCity" />
-                <weather-list :cities="store.cities" @delete-item="store.deleteCity" @set-favorite="store.toggleIsFavorite" @view-chart="store.getCityHourlyForecast" />
+                <weather-list :cities="store.cities" @delete-item="store.deleteCity" @set-favorite="store.toggleIsFavorite" @view-chart="goToChart" />
                 <span v-if="!store.loading && !store.cities.length" class="message">No cities founded.</span>
             </div>
             <AppLoader v-if="store.loading" />
         </section>
         <section class="section">
             <div class="container">
-                <WeatherChart :forecast="store.hourlyForecast" />
+                <div class="home-page__controls">
+                    <AppButton @click="isSevenDayForecast = false" class="home-page__controls-btn" :class="{ 'home-page__controls-btn_active': !isSevenDayForecast }"
+                        >5 days</AppButton
+                    >
+                    <AppButton @click="isSevenDayForecast = true" class="home-page__controls-btn" :class="{ 'home-page__controls-btn_active': isSevenDayForecast }"
+                        >7 days</AppButton
+                    >
+                </div>
+                <Transition>
+                    <WeatherChart v-if="!isSevenDayForecast" :forecast="store.hourlyForecast" :id="chartId" y-label="Temperature (°C)" x-label="Time" />
+                </Transition>
+
+                <Transition>
+                    <WeatherChart v-if="isSevenDayForecast" :forecast="store.fiveDayForecast" :id="chartId" y-label="Temperature (°C)" x-label="Date" />
+                </Transition>
             </div>
         </section>
     </div>
@@ -31,23 +45,51 @@ import AppAlert from '@/components/UI/App-Alert/AppAlert.vue'
 import AppLoader from '@/components/UI/App-Loader/AppLoader.vue'
 import ErrorAlert from '@/components/UI/Error-ALert/ErrorAlert.vue'
 import WeatherChart from '@/components/WeatherChart/WeatherChart.vue'
+import AppButton from '@/components/UI/App-Button/App-Button.vue'
 import { useCitiesStore } from '@/stores/cities'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+import { DEFAULT_CITY } from '@/constants'
+import generateId from '@/helpers/generateId'
+
+const isSevenDayForecast = ref(false)
+const chartId = generateId()
 
 const store = useCitiesStore()
 
 onMounted(() => {
     store.getFavoriteCities()
     store.getDefaultCity()
-    if (!store.hourlyForecast.length) {
-        store.getCityHourlyForecast('kharkiv')
+    if (!store.hourlyForecast.length || !store.fiveDayForecast.length) {
+        store.getCityForecast(DEFAULT_CITY)
     }
 })
+
+const goToChart = (name) => {
+    const chartElement = document.getElementById(chartId)
+    if (chartElement) {
+        chartElement.scrollIntoView({ block: 'end', behavior: 'smooth' })
+        store.getCityForecast(name)
+    }
+}
 </script>
 <style lang="scss">
 .home-page {
     &__search {
         margin-bottom: 50px;
+    }
+
+    &__controls {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 20px;
+
+        &-btn {
+            &_active {
+                background-color: $teal;
+            }
+        }
     }
 }
 </style>
