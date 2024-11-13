@@ -2,7 +2,7 @@
     <div class="favorites">
         <section class="section">
             <div class="container">
-                <weather-list :cities="store.favoriteCities" />
+                <weather-list :cities="store.favoriteCities" @set-favorite="(id) => store.toggleIsFavorite(id, true)" />
                 <span v-if="!store.favoriteCities.length" class="message">No Favorite cities founded.</span>
             </div>
         </section>

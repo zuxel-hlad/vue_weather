@@ -37,7 +37,16 @@ export const useCitiesStore = defineStore('cities', {
             this.deleteAlert = false
         },
 
-        toggleIsFavorite(id) {
+        toggleIsFavorite(id, handleRemove = false) {
+            if (id && handleRemove) {
+                this.favoriteCities = this.favoriteCities.filter((item) => item.id !== id)
+            }
+
+            if (this.favoriteCities.length >= 5) {
+                this.countAlert = true
+                return
+            }
+            console.log('here 12')
             this.cities = this.cities.map((city) => {
                 if (city.id === id) {
                     if (!this.favoriteCities.some((item) => item.id === id)) {

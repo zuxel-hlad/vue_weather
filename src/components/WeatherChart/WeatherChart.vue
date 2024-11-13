@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 import Chart from 'chart.js/auto'
 
 const chart = ref(null)
@@ -72,8 +72,8 @@ const runChart = async () => {
     renderChart(labels, temperatures)
 }
 
-watch(props, () => {
-    runChart()
+onMounted(() => {
+    setTimeout(runChart, 200)
 })
 </script>
 
