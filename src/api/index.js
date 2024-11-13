@@ -4,16 +4,17 @@ import { BASE_URL, API_KEY, USER_LOCATION_URL } from '@/constants'
 const apiClient = axios.create({
     baseURL: BASE_URL,
     params: {
-        units: 'metric',
         appid: API_KEY,
+        units: 'metric',
+        lang: 'ua',
     },
 })
 
 export const api = {
-    getCityByName: async (name, lang = 'ua') => {
+    getCityByName: async (name) => {
         try {
             const { data } = await apiClient.get('/weather', {
-                params: { q: name, lang },
+                params: { q: name },
             })
             return data
         } catch (error) {
@@ -28,6 +29,18 @@ export const api = {
             return data?.city
         } catch (error) {
             console.error('Error when determining city:', error.message)
+            throw error
+        }
+    },
+
+    getHourlyForecast: async (name) => {
+        try {
+            const { data } = await apiClient.get('/forecast', {
+                params: { q: name },
+            })
+            return data
+        } catch (error) {
+            console.error('Error getting forecast:', error.message)
             throw error
         }
     },

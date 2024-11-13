@@ -15,7 +15,6 @@ defineProps({
     message: {
         type: String,
         required: true,
-        default: 'Ooops... Something goes wrong.',
     },
 })
 </script>

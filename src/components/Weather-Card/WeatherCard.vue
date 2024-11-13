@@ -1,6 +1,9 @@
 <template>
     <div class="card">
         <div v-if="$route.path !== '/favorites'" class="card__controls">
+            <button type="button" class="card__btn" title="Add to favorites" @click="$emit('view-chart')">
+                <i class="fa-solid fa-chart-simple"></i>
+            </button>
             <button type="button" :class="{ card__btn_favorite: city?.isFavorite }" class="card__btn" title="Add to favorites" @click="$emit('set-favorite')">
                 <i class="fa-solid fa-star"></i>
             </button>
@@ -15,12 +18,11 @@
     </div>
 </template>
 <script setup>
-defineEmits(['delete-item', 'set-favorite'])
+defineEmits(['delete-item', 'set-favorite', 'view-chart'])
 defineProps({
     city: {
         type: Object,
         required: true,
-        default: () => ({}),
     },
 })
 </script>

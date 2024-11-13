@@ -18,7 +18,6 @@ defineProps({
     controls: {
         type: Boolean,
         required: false,
-        default: false,
     },
 })
 

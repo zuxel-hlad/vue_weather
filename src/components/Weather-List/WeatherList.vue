@@ -3,6 +3,7 @@
         <WeatherCard
             @delete-item="$emit('delete-item', city.id)"
             @set-favorite="$emit('set-favorite', city.id)"
+            @view-chart="$emit('view-chart', city.id)"
             class="weather-list__card"
             v-for="city in cities"
             :city="city"
@@ -13,13 +14,12 @@
 <script setup>
 import WeatherCard from '@/components/Weather-Card/WeatherCard.vue'
 
-defineEmits(['set-favorite', 'delete-item'])
+defineEmits(['set-favorite', 'delete-item', 'view-chart'])
 
 defineProps({
     cities: {
         type: Array,
         required: true,
-        default: () => [],
     },
 })
 </script>
