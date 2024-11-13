@@ -1,12 +1,13 @@
 import axios from 'axios'
+import i18n from '@/i18n'
 import { BASE_URL, API_KEY, USER_LOCATION_URL } from '@/constants'
-
+const locale = i18n.global.locale
 const apiClient = axios.create({
     baseURL: BASE_URL,
     params: {
         appid: API_KEY,
         units: 'metric',
-        lang: 'ua',
+        lang: locale,
     },
 })
 

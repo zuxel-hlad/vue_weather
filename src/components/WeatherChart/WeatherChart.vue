@@ -17,10 +17,10 @@ const props = defineProps({
         type: Array,
         required: true,
     },
-    xLabel: {
+    xAxisLabel: {
         type: String,
     },
-    yLabel: {
+    yAxisLabel: {
         type: String,
     },
 })
@@ -63,13 +63,13 @@ const renderChart = (labels, data) => {
                 x: {
                     title: {
                         display: true,
-                        text: props.xLabel,
+                        text: props.xAxisLabel,
                     },
                 },
                 y: {
                     title: {
                         display: true,
-                        text: props.yLabel,
+                        text: props.yAxisLabel,
                     },
                     beginAtZero: true,
                 },

@@ -1,13 +1,13 @@
 <template>
     <div class="card">
         <div class="card__controls">
-            <button v-if="$route.path !== '/favorites'" type="button" class="card__btn" title="Add to favorites" @click="$emit('view-chart')">
+            <button v-if="$route.path !== '/favorites'" type="button" class="card__btn" :title="$t('weatherCard.chart')" @click="$emit('view-chart')">
                 <i class="fa-solid fa-chart-simple"></i>
             </button>
-            <button type="button" :class="{ card__btn_favorite: city?.isFavorite }" class="card__btn" title="Add to favorites" @click="$emit('set-favorite')">
+            <button type="button" :class="{ card__btn_favorite: city?.isFavorite }" class="card__btn" :title="$t('weatherCard.isFavorite')" @click="$emit('set-favorite')">
                 <i class="fa-solid fa-star"></i>
             </button>
-            <button v-if="$route.path !== '/favorites'" type="button" class="card__btn" title="Delete item" @click="$emit('delete-item')">
+            <button v-if="$route.path !== '/favorites'" type="button" class="card__btn" :title="$t('weatherCard.delete')" @click="$emit('delete-item')">
                 <i class="fa-solid fa-trash"></i>
             </button>
         </div>

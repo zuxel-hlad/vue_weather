@@ -3,6 +3,7 @@ import { DEFAULT_CITY } from '@/constants'
 import generateId from '@/helpers/generateId'
 import formatTime from '@/helpers/formatTime'
 import formatDate from '@/helpers/formatDate'
+import i18n from '@/i18n'
 
 export default {
     async getCityForecast(name) {
@@ -14,7 +15,6 @@ export default {
 
                 const hourlyForecast = data.list.reduce((acc, item) => {
                     const forecastDate = new Date(item.dt * 1000).toISOString().split('T')[0]
-
                     if (forecastDate === today) {
                         acc.push({
                             label: formatTime(item.dt),
@@ -57,13 +57,13 @@ export default {
     },
 
     async addNewCity(name) {
-        if (this.isCityExist(name)) {
-            this.error = 'City Already exist.'
-            return
-        }
         this.loading = true
         try {
             const city = await api.getCityByName(name)
+            if (this.isCityExist(city.name)) {
+                this.error = i18n.global.t('errorAlert.message')
+                return
+            }
             if (this.cities.length < 5) {
                 this.cities.push({
                     name: city.name,

@@ -10,12 +10,14 @@
             <span v-if="error">{{ errorMessage }}</span>
         </div>
         <nav class="header__nav">
-            <RouterLink to="/">Home</RouterLink>
-            <RouterLink to="/favorites">Favorites</RouterLink>
+            <RouterLink to="/">{{ $t('header.home') }}</RouterLink>
+            <RouterLink to="/favorites">{{ $t('header.favorites') }}</RouterLink>
+            <LangSwitcher />
         </nav>
     </header>
 </template>
 <script setup>
+import LangSwitcher from '@/components/Lang-Swithcer/LangSwitcher.vue'
 import { useUserStore } from '@/stores/user'
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'
@@ -30,7 +32,6 @@ onMounted(() => {
     padding: 12px 0 0 0;
 
     &__logo {
-        color: $dark;
         font-weight: 700;
         font-size: 32px;
         white-space: nowrap;

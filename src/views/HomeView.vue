@@ -11,39 +11,51 @@
         <section class="section">
             <div class="container">
                 <div class="home-page__controls">
-                    <AppButton @click="isSevenDayForecast = false" class="home-page__controls-btn" :class="{ 'home-page__controls-btn_active': !isSevenDayForecast }"
-                        >5 days</AppButton
-                    >
-                    <AppButton @click="isSevenDayForecast = true" class="home-page__controls-btn" :class="{ 'home-page__controls-btn_active': isSevenDayForecast }"
-                        >7 days</AppButton
-                    >
+                    <AppButton @click="isSevenDayForecast = false" class="home-page__controls-btn" :class="{ 'home-page__controls-btn_active': !isSevenDayForecast }">{{
+                        $t('chart.fiveDayBtn')
+                    }}</AppButton>
+                    <AppButton @click="isSevenDayForecast = true" class="home-page__controls-btn" :class="{ 'home-page__controls-btn_active': isSevenDayForecast }">
+                        {{ $t('chart.sevenDaysBtn') }}
+                    </AppButton>
                 </div>
                 <Transition>
-                    <WeatherChart v-if="!isSevenDayForecast" :forecast="store.hourlyForecast" :id="chartId" y-label="Temperature (°C)" x-label="Time" />
+                    <WeatherChart
+                        v-if="!isSevenDayForecast"
+                        :forecast="store.hourlyForecast"
+                        :id="chartId"
+                        :y-axis-Label="$t('chart.yAxisLabelOneDay')"
+                        :x-axis-label="$t('chart.xAxisLabelOneDay')"
+                    />
                 </Transition>
 
                 <Transition>
-                    <WeatherChart v-if="isSevenDayForecast" :forecast="store.fiveDayForecast" :id="chartId" y-label="Temperature (°C)" x-label="Date" />
+                    <WeatherChart
+                        v-if="isSevenDayForecast"
+                        :forecast="store.fiveDayForecast"
+                        :id="chartId"
+                        :y-axis-Label="$t('chart.yAxisLabelFiveDays')"
+                        :x-axis-label="$t('chart.xAxisLabelFiveDays')"
+                    />
                 </Transition>
             </div>
         </section>
     </div>
     <AppModal v-model="store.citiesCountAlert">
         <AppAlert @close-alert="store.citiesCountAlert = false">
-            <template #title>Attention!</template>
-            <template #description>No more than 5 weather blocks are allowed.</template>
+            <template #title>{{ $t('appAlert.title') }}</template>
+            <template #description>{{ $t('appAlert.descriptionCitiesLimit') }}</template>
         </AppAlert>
     </AppModal>
     <AppModal v-model="store.favoritesCountAlert">
         <AppAlert @close-alert="store.favoritesCountAlert = false">
-            <template #title>Attention!</template>
-            <template #description>You can add no more than 5 blocks to your favorites.</template>
+            <template #title>{{ $t('appAlert.title') }}</template>
+            <template #description>{{ $t('appAlert.descriptionFavoritesLimit') }}</template>
         </AppAlert>
     </AppModal>
     <AppModal v-model="store.deleteAlert">
         <AppAlert controls @close-alert="store.deleteAlert = false" @confirm="store.confirmDeleteCity" @cancel="store.deleteAlert = false">
-            <template #title>Attention!</template>
-            <template #description>You are trying to delete a weather block. Do you agree?</template>
+            <template #title>{{ $t('appAlert.title') }}</template>
+            <template #description>{{ $t('appAlert.descriptionCityDelete') }}</template>
         </AppAlert>
     </AppModal>
     <ErrorAlert v-if="store.error.length" :message="store.error" @close="store.error = ''" />

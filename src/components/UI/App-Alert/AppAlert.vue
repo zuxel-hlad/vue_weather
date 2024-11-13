@@ -6,8 +6,8 @@
         <h3 class="alert__title"><slot name="title" /></h3>
         <p class="alert__description"><slot name="description" /></p>
         <div class="alert__controls" v-if="controls">
-            <AppButton @click="$emit('confirm')" type="button" class="alert__controls-btn" warning>Ok </AppButton>
-            <AppButton @click="$emit('cancel')" type="button" class="alert__controls-btn">Cancel </AppButton>
+            <AppButton @click="$emit('confirm')" type="button" class="alert__controls-btn" warning>{{ $t('appAlert.okBtn') }}</AppButton>
+            <AppButton @click="$emit('cancel')" type="button" class="alert__controls-btn">{{ $t('appAlert.cancelBtn') }}</AppButton>
         </div>
     </div>
 </template>

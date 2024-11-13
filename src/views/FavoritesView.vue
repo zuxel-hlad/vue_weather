@@ -9,8 +9,8 @@
     </div>
     <AppModal v-model="store.deleteAlert">
         <AppAlert controls @close-alert="store.deleteAlert = false" @confirm="store.confirmDeleteCity(FAVORITES)" @cancel="store.deleteAlert = false">
-            <template #title>Attention!</template>
-            <template #description>You are trying to delete a favorite weather block. Do you agree?</template>
+            <template #title>{{ $t('appAlert.title') }}</template>
+            <template #description>{{ $t('appAlert.descriptionFavoriteDelete') }}</template>
         </AppAlert>
     </AppModal>
 </template>
