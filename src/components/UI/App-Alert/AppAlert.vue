@@ -3,8 +3,8 @@
         <button type="button" class="alert__close" @click="$emit('close-alert')">
             <i class="fa-solid fa-xmark"></i>
         </button>
-        <h3 class="alert__title">Attention!</h3>
-        <p class="alert__description">The limit for adding cities is 5 items. Delete one to add a new one.</p>
+        <h3 class="alert__title"><slot name="title" /></h3>
+        <p class="alert__description"><slot name="description" /></p>
         <div class="alert__controls" v-if="controls">
             <AppButton @click="$emit('confirm')" type="button" class="alert__controls-btn" warning>Ok </AppButton>
             <AppButton @click="$emit('cancel')" type="button" class="alert__controls-btn">Cancel </AppButton>
@@ -12,8 +12,6 @@
     </div>
 </template>
 <script setup>
-import AppButton from '@/components/UI/App-Button/App-Button.vue'
-
 defineProps({
     controls: {
         type: Boolean,
@@ -31,6 +29,17 @@ defineEmits(['confirm', 'cancel', 'close-alert'])
     width: 100%;
     max-width: 700px;
     background-color: $white;
+
+    @media (prefers-color-scheme: dark) {
+        color: $white;
+        background-color: $dark;
+        border: 1px solid $teal;
+    }
+
+    @media (prefers-color-scheme: light) {
+        color: $dark;
+        background-color: $white;
+    }
 
     &__close {
         position: absolute;

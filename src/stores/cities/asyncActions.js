@@ -72,7 +72,7 @@ export default {
                     temp: Math.round(city.main.temp),
                 })
             } else {
-                this.countAlert = true
+                this.citiesCountAlert = true
             }
         } catch (e) {
             console.error(e.message)

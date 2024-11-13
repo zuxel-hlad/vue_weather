@@ -25,6 +25,9 @@ const props = defineProps({
     },
 })
 
+Chart.defaults.borderColor = 'teal'
+Chart.defaults.color = 'teal'
+
 const renderChart = (labels, data) => {
     if (chart.value) {
         chart.value.destroy()
@@ -51,6 +54,9 @@ const renderChart = (labels, data) => {
             plugins: {
                 legend: {
                     display: false,
+                },
+                colors: {
+                    enabled: true,
                 },
             },
             scales: {
@@ -86,8 +92,17 @@ onMounted(runChart)
 
 <style lang="scss" scoped>
 .chart {
-    background-color: #f7f9fc;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid $teal;
+
+    @media (prefers-color-scheme: dark) {
+        color: $white;
+        background-color: $dark;
+    }
+
+    @media (prefers-color-scheme: light) {
+        color: $dark;
+        background-color: $white;
+    }
 }
 </style>

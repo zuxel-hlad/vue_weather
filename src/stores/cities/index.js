@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import asyncActions from './asyncActions'
+import { CITIES, FAVORITES } from '@/constants'
 
 export const useCitiesStore = defineStore('cities', {
     state: () => ({
@@ -7,7 +8,8 @@ export const useCitiesStore = defineStore('cities', {
         hourlyForecast: [],
         fiveDayForecast: [],
         favoriteCities: [],
-        countAlert: false,
+        citiesCountAlert: false,
+        favoritesCountAlert: false,
         deleteAlert: false,
         deleteItemId: '',
         chartItemId: '',
@@ -25,23 +27,50 @@ export const useCitiesStore = defineStore('cities', {
     },
 
     actions: {
-        deleteCity(id) {
-            this.deleteItemId = id
-            this.deleteAlert = true
+        deleteCity(id, source = CITIES) {
+            if (source === CITIES) {
+                this.deleteItemId = id
+                this.deleteAlert = true
+            }
+
+            if (source === FAVORITES) {
+                this.deleteItemId = id
+                this.deleteAlert = true
+                console.log(id, this.deleteItemId)
+            }
         },
 
-        confirmDeleteCity() {
-            this.cities = this.cities.filter((city) => city.id !== this.deleteItemId)
+        confirmDeleteCity(source = CITIES) {
+            if (source === CITIES) {
+                this.cities = this.cities.filter((city) => city.id !== this.deleteItemId)
+            }
+
+            if (source === FAVORITES) {
+                console.log(source)
+                this.favoriteCities = this.favoriteCities.filter((city) => city.id !== this.deleteItemId)
+                this.cities = this.cities.map((city) => {
+                    if (city.id === this.deleteItemId) {
+                        return {
+                            ...city,
+                            isFavorite: !city.isFavorite,
+                        }
+                    } else {
+                        return city
+                    }
+                })
+                localStorage.setItem('favorite-cities', JSON.stringify(this.favoriteCities))
+            }
+
             this.deleteAlert = false
         },
 
-        toggleIsFavorite(id, handleRemove = false) {
-            if (id && handleRemove) {
+        toggleIsFavorite(id) {
+            if (id) {
                 this.favoriteCities = this.favoriteCities.filter((item) => item.id !== id)
             }
 
             if (this.favoriteCities.length >= 5) {
-                this.countAlert = true
+                this.favoritesCountAlert = true
                 return
             }
 

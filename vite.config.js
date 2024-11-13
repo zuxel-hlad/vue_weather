@@ -6,12 +6,24 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
-    plugins: [vue(), vueDevTools()],
+    plugins: [
+        vue({
+            template: {
+                compilerOptions: {
+                    isCustomElement: (tag) => {
+                        return tag.startsWith('AppLoader')
+                    },
+                },
+            },
+        }),
+        vueDevTools(),
+    ],
     server: {
         watch: {
             usePolling: true,
         },
     },
+
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url)),

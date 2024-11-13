@@ -18,7 +18,7 @@
 <script setup>
 import { citiesEn } from './fakeCities'
 import { defineModel, ref, watch } from 'vue'
-import AppButton from '@/components/UI/App-Button/App-Button.vue'
+
 const validateError = ref(false)
 
 const searchValue = defineModel({ default: '' })

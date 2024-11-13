@@ -28,11 +28,23 @@
             </div>
         </section>
     </div>
-    <AppModal v-model="store.countAlert">
-        <AppAlert @close-alert="store.countAlert = false" />
+    <AppModal v-model="store.citiesCountAlert">
+        <AppAlert @close-alert="store.citiesCountAlert = false">
+            <template #title>Attention!</template>
+            <template #description>No more than 5 weather blocks are allowed.</template>
+        </AppAlert>
+    </AppModal>
+    <AppModal v-model="store.favoritesCountAlert">
+        <AppAlert @close-alert="store.favoritesCountAlert = false">
+            <template #title>Attention!</template>
+            <template #description>You can add no more than 5 blocks to your favorites.</template>
+        </AppAlert>
     </AppModal>
     <AppModal v-model="store.deleteAlert">
-        <AppAlert controls @close-alert="store.deleteAlert = false" @confirm="store.confirmDeleteCity" @cancel="store.deleteAlert = false" />
+        <AppAlert controls @close-alert="store.deleteAlert = false" @confirm="store.confirmDeleteCity" @cancel="store.deleteAlert = false">
+            <template #title>Attention!</template>
+            <template #description>You are trying to delete a weather block. Do you agree?</template>
+        </AppAlert>
     </AppModal>
     <ErrorAlert v-if="store.error.length" :message="store.error" @close="store.error = ''" />
 </template>
@@ -40,12 +52,7 @@
 <script setup>
 import WeatherList from '@/components/Weather-List/WeatherList.vue'
 import SearchForm from '@/components/Search-Form/SearchForm.vue'
-import AppModal from '@/components/UI/App-Modal/AppModal.vue'
-import AppAlert from '@/components/UI/App-Alert/AppAlert.vue'
-import AppLoader from '@/components/UI/App-Loader/AppLoader.vue'
-import ErrorAlert from '@/components/UI/Error-ALert/ErrorAlert.vue'
 import WeatherChart from '@/components/WeatherChart/WeatherChart.vue'
-import AppButton from '@/components/UI/App-Button/App-Button.vue'
 import { useCitiesStore } from '@/stores/cities'
 import { onMounted, ref } from 'vue'
 import { DEFAULT_CITY } from '@/constants'
