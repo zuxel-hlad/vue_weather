@@ -11,11 +11,14 @@ export default {
         try {
             const forecast = await api.getForecast(name)
             const hourlyForecastChartData = (data) => {
-                const today = new Date().toISOString().split('T')[0]
+                const today = new Date()
+                const todayDate = today.getDate()
+                const todayMonth = today.getMonth()
+                const todayYear = today.getFullYear()
 
                 const hourlyForecast = data.list.reduce((acc, item) => {
-                    const forecastDate = new Date(item.dt * 1000).toISOString().split('T')[0]
-                    if (forecastDate === today) {
+                    const forecastDate = new Date(item.dt * 1000)
+                    if (forecastDate.getDate() === todayDate && forecastDate.getMonth() === todayMonth && forecastDate.getFullYear() === todayYear) {
                         acc.push({
                             label: formatTime(item.dt),
                             temp: Math.round(item.main.temp),

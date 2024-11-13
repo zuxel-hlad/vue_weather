@@ -36,7 +36,6 @@ export const useCitiesStore = defineStore('cities', {
             if (source === FAVORITES) {
                 this.deleteItemId = id
                 this.deleteAlert = true
-                console.log(id, this.deleteItemId)
             }
         },
 
@@ -46,7 +45,6 @@ export const useCitiesStore = defineStore('cities', {
             }
 
             if (source === FAVORITES) {
-                console.log(source)
                 this.favoriteCities = this.favoriteCities.filter((city) => city.id !== this.deleteItemId)
                 this.cities = this.cities.map((city) => {
                     if (city.id === this.deleteItemId) {

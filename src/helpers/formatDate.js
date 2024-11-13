@@ -7,7 +7,7 @@ export default (timestamp) => {
 
     if (locale === 'ua') {
         const dayOfWeekUa = daysOfWeekUa[date.getDay()]
-        console.log(`${locale}-${locale.toUpperCase()}`)
+
         const day = date.toLocaleDateString(`${locale}-${locale.toUpperCase()}`, {
             day: '2-digit',
             month: '2-digit',

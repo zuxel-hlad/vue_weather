@@ -9,7 +9,6 @@ import i18n from '@/i18n'
 import { onBeforeMount } from 'vue'
 
 const onSwitchLang = (e) => {
-    console.log(e.target.value)
     i18n.global.locale = e.target.value
     localStorage.setItem('lang', i18n.global.locale)
 }

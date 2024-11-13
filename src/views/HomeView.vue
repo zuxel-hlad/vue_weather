@@ -12,10 +12,10 @@
             <div class="container">
                 <div class="home-page__controls">
                     <AppButton @click="isSevenDayForecast = false" class="home-page__controls-btn" :class="{ 'home-page__controls-btn_active': !isSevenDayForecast }">{{
-                        $t('chart.fiveDayBtn')
+                        $t('chart.hourly')
                     }}</AppButton>
                     <AppButton @click="isSevenDayForecast = true" class="home-page__controls-btn" :class="{ 'home-page__controls-btn_active': isSevenDayForecast }">
-                        {{ $t('chart.sevenDaysBtn') }}
+                        {{ $t('chart.fiveDays') }}
                     </AppButton>
                 </div>
                 <Transition>

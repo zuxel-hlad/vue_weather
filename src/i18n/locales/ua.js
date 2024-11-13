@@ -11,8 +11,8 @@ export default {
     },
 
     chart: {
-        fiveDayBtn: '5 днів',
-        sevenDaysBtn: '7 днів',
+        hourly: 'Почасово',
+        fiveDays: '5 днів',
         yAxisLabelOneDay: 'Температура',
         xAxisLabelOneDay: 'Час',
         yAxisLabelFiveDays: 'Температура',

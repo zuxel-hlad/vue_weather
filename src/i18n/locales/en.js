@@ -11,8 +11,8 @@ export default {
     },
 
     chart: {
-        fiveDayBtn: '5 days',
-        sevenDaysBtn: '7 days',
+        hourly: 'Hourly',
+        fiveDays: '5 days',
         yAxisLabelOneDay: 'Temperature',
         xAxisLabelOneDay: 'Time',
         yAxisLabelFiveDays: 'Temperature',
